@@ -1,14 +1,7 @@
-local augroup = vim.api.nvim_create_augroup("ScratchBuffer", { clear = true })
+local M = {}
 
-local function main()
-  print "Hello from our plugin"
+M.setup = function()
+  print "Welcome to Cocli"
 end
 
-local function setup()
-  vim.api.nvim_create_autocmd(
-    "VimEnter",
-    { group = augroup, desc = "Set a fennel scratch buffer on load", once = true, callback = main }
-  )
-end
-
-return { setup = setup }
+return M
