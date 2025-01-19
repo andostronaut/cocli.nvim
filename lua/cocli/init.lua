@@ -1,14 +1,29 @@
-local augroup = vim.api.nvim_create_augroup("ScratchBuffer", { clear = true })
+local M = {}
 
-local function main()
-  print "Hello from our plugin"
+M.setup = function(opts)
+  opts = opts or {}
+
+  -- Validate configuration
+  if opts.some_required_option and type(opts.some_required_option) ~= "string" then
+    error "some_required_option must be a string"
+  end
+
+  -- Initialize plugin state
+  M.config = vim.tbl_deep_extend("force", {
+    -- default options here
+  }, opts)
+
+  -- Setup plugin
+  local ok, err = pcall(function()
+    -- Plugin initialization logic here
+    print "Cocli initialized successfully"
+  end)
+
+  if not ok then
+    error(string.format("Failed to setup Cocli: %s", err))
+  end
+
+  return ok
 end
 
-local function setup()
-  vim.api.nvim_create_autocmd(
-    "VimEnter",
-    { group = augroup, desc = "Set a fennel scratch buffer on load", once = true, callback = main }
-  )
-end
-
-return { setup = setup }
+return M
