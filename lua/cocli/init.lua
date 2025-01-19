@@ -1,3 +1,5 @@
+local cmd = vim.api.nvim_create_user_command
+
 local M = {}
 
 M.setup = function(opts)
@@ -16,7 +18,11 @@ M.setup = function(opts)
   -- Setup plugin
   local ok, err = pcall(function()
     -- Plugin initialization logic here
-    print "Cocli initialized successfully"
+    cmd("Cocli", function()
+      print "Get started with Cocli"
+    end, { desc = "Show welcoming message" })
+
+    vim.notify("Cocli initialized successfully", vim.log.levels.INFO)
   end)
 
   if not ok then
